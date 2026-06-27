@@ -366,10 +366,10 @@ const nodes = DISHES.map(d => ({
 
 const simulation = d3.forceSimulation(nodes)
   .force('charge', d3.forceManyBody().strength(isMobile ? -80 : -140))
-  .force('center', d3.forceCenter(W / 2, canvasH / 2).strength(isMobile ? 0.12 : 0.04))
+  .force('center', d3.forceCenter(W / 2, H / 2).strength(isMobile ? 0.12 : 0.04))
   .force('collision', d3.forceCollide().radius(d => d.r + (isMobile ? 10 : 16)).strength(0.9))
   .force('x', d3.forceX(W / 2).strength(isMobile ? 0.06 : 0.01))
-  .force('y', d3.forceY(canvasH / 2).strength(isMobile ? 0.06 : 0.01))
+  .force('y', d3.forceY(H / 2).strength(isMobile ? 0.06 : 0.01))
   .alphaDecay(0)
   .velocityDecay(0.58);
 
