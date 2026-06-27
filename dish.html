@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dish — The Chettan & Chechis</title>
+  <script src="dishes-data.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #b8956a;
+      --bg: #0a0a0f;
+      --fg: #f5ede0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+    }
+
+    /* ── Back nav ── */
+    .back-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 20px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(10,10,15,0.95) 0%, transparent 100%);
+    }
+
+    .back-link {
+      color: rgba(245,237,224,0.5);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .back-link:hover { color: var(--fg); }
+
+    .site-name {
+      color: rgba(245,237,224,0.35);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 420px;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,15,0.2) 0%,
+        rgba(10,10,15,0.15) 40%,
+        rgba(10,10,15,0.85) 75%,
+        rgba(10,10,15,1) 100%
+      );
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 0 clamp(24px, 8vw, 120px) 48px;
+    }
+
+    .hero-category {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 400;
+      color: var(--fg);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: rgba(245,237,224,0.45);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Body ── */
+    .content-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px clamp(24px, 6vw, 60px) 100px;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: rgba(245,237,224,0.6);
+      line-height: 1.6;
+      margin-bottom: 36px;
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+    }
+
+    .meta-bar {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .meta-item { display: flex; flex-direction: column; gap: 5px; }
+    .meta-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,237,224,0.28);
+    }
+    .meta-value {
+      font-size: 0.88rem;
+      color: rgba(245,237,224,0.65);
+    }
+
+    .section-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      margin-top: 40px;
+    }
+
+    .body-text {
+      font-size: 1.05rem;
+      color: rgba(245,237,224,0.55);
+      line-height: 1.9;
+      margin-bottom: 14px;
+    }
+
+    .ingredients-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-top: 14px;
+    }
+
+    .ingredients-box p {
+      font-size: 0.9rem;
+      color: rgba(245,237,224,0.48);
+      line-height: 1.85;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+      margin: 44px 0;
+    }
+
+    .footer-nav {
+      margin-top: 60px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      border: 1px solid rgba(184,149,106,0.35);
+      border-radius: 50px;
+      color: var(--accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      font-family: inherit;
+    }
+    .back-btn:hover {
+      background: rgba(184,149,106,0.08);
+      border-color: rgba(184,149,106,0.6);
+    }
+
+    /* Emoji decoration */
+    .dish-emoji {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 28px;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="back-nav">
+  <a class="back-link" href="index.html">← Back to Kitchen</a>
+  <span class="site-name">The Chettan & Chechis</span>
+</nav>
+
+<div class="hero">
+  <img id="hero-img" src="" alt="" />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-category" id="hero-category"></div>
+    <h1 class="hero-title" id="hero-title"></h1>
+    <p class="hero-subtitle" id="hero-subtitle"></p>
+  </div>
+</div>
+
+<div class="content-wrap">
+  <span class="dish-emoji" id="dish-emoji"></span>
+  <p class="tagline" id="tagline"></p>
+
+  <div class="meta-bar">
+    <div class="meta-item">
+      <span class="meta-label">Difficulty</span>
+      <span class="meta-value" id="meta-diff"></span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Time</span>
+      <span class="meta-value" id="meta-time"></span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Category</span>
+      <span class="meta-value" id="meta-cat"></span>
+    </div>
+  </div>
+
+  <div class="section-label">About This Dish</div>
+  <p class="body-text" id="body-desc"></p>
+
+  <div class="divider"></div>
+
+  <div class="section-label">History & Background</div>
+  <p class="body-text" id="body-history"></p>
+
+  <div class="section-label">Key Ingredients</div>
+  <div class="ingredients-box">
+    <p id="body-ingredients"></p>
+  </div>
+
+  <div class="footer-nav">
+    <a class="back-btn" href="index.html">← Back to the Kitchen</a>
+  </div>
+</div>
+
+<script>
+  // Read dish id from URL
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const dish = DISHES.find(d => d.id === id);
+
+  if (!dish) {
+    document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;color:rgba(245,237,224,0.4);font-family:Georgia,serif;font-size:1rem;letter-spacing:0.1em;">Dish not found. <a href="index.html" style="color:#b8956a;margin-left:12px;">← Go back</a></div>';
+  } else {
+    document.title = `${dish.title} — The Chettan & Chechis`;
+
+    document.getElementById('hero-img').src = `pics/${dish.id}.jpg`;
+    document.getElementById('hero-img').alt = dish.title;
+    document.getElementById('hero-category').textContent = dish.category;
+    document.getElementById('hero-title').textContent = dish.title;
+    document.getElementById('hero-subtitle').textContent = dish.subtitle;
+
+    document.getElementById('dish-emoji').textContent = dish.emoji;
+    document.getElementById('tagline').textContent = `"${dish.tagline}"`;
+
+    document.getElementById('meta-diff').textContent = dish.difficulty;
+    document.getElementById('meta-time').textContent = dish.time;
+    document.getElementById('meta-cat').textContent = dish.category.split('·')[0].trim();
+
+    document.getElementById('body-desc').textContent = dish.desc;
+    document.getElementById('body-history').textContent = dish.history;
+    document.getElementById('body-ingredients').textContent = dish.ingredients;
+  }
+</script>
+
+</body>
+</html>
